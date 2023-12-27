@@ -20,8 +20,8 @@ public class Player : MonoBehaviour {
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit, 1000)) {
             var card = hit.collider.GetComponent<Card>();
-            if (card != null) {
-                _selectedCard = card;
+            if (card != null) { // todo: check if card is on player's side
+                _selectedCard = card; // todo: highlight selected card
                 Debug.Log("Selected card " + card.name);
             }
         }
@@ -31,8 +31,9 @@ public class Player : MonoBehaviour {
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit)) {
             var card = hit.collider.GetComponent<Card>();
-            if (_selectedCard != null && card != null && card != _selectedCard) {
+            if (_selectedCard != null && card != null && card != _selectedCard) { // todo: check if card is on opponent's side
                 _selectedCard.Attack(card);
+                _selectedCard = null; // todo: unhighlight selected card
                 Debug.Log("Attacked card " + card.name);
             }
         }
