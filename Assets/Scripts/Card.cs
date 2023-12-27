@@ -10,8 +10,9 @@ public class Card : MonoBehaviour {
     [SerializeField] private int attack;
     [SerializeField] private int health;
     [SerializeField] private int cost;
-    
-    
+
+    [Header("Debug")]
+    public int playerIndex;
 
     private void Start() {
         // todo: set atk, hp, cost from scriptable object
@@ -22,6 +23,10 @@ public class Card : MonoBehaviour {
     }
 
     public void Attack(Card target) {
+        if (target.playerIndex == playerIndex) {
+            Debug.Log("Cannot attack your own card!");
+            return;
+        }
         TakeDamage(target.attack);
         target.TakeDamage(attack);
     }
