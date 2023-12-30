@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
-public class Player : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     public List<CardStats> deck;
     
     private Camera _camera;
