@@ -17,14 +17,7 @@ public class Card : MonoBehaviour {
     private int _cost;
     
     private void Start() {
-        // set atk, hp, cost from scriptable object
-        _cost = stats.cost;
-        _attack = stats.attack;
-        _health = stats.health;
-        // update text
-        costText.text = _cost.ToString();
-        attackText.text = _attack.ToString();
-        healthText.text = _health.ToString();
+        SetStats(stats);
     }
 
     public void Attack(Card target) {
@@ -42,5 +35,15 @@ public class Card : MonoBehaviour {
         if (_health <= 0) {
             Destroy(gameObject); // TODO: replace with proper death handling
         }
+    }
+    
+    public void SetStats(CardStats cardStats) {
+        stats = cardStats;
+        _cost = cardStats.cost;
+        _attack = cardStats.attack;
+        _health = cardStats.health;
+        costText.text = _cost.ToString();
+        attackText.text = _attack.ToString();
+        healthText.text = _health.ToString();
     }
 }
