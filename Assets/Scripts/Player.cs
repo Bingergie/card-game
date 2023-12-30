@@ -1,9 +1,11 @@
-using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
 public class Player : MonoBehaviour {
+    public List<CardStats> deck;
+    
     private Camera _camera;
 
     [CanBeNull] private Card _selectedCard;

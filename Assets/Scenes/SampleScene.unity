@@ -158,9 +158,7 @@ MonoBehaviour:
   attackText: {fileID: 515760098}
   healthText: {fileID: 848646967}
   costText: {fileID: 1596992466}
-  attack: 2
-  health: 10
-  cost: 3
+  stats: {fileID: 11400000, guid: 7a1a4757c8e3f49e5ae256a573e6aef1, type: 2}
   playerIndex: 0
 --- !u!64 &35611677
 MeshCollider:
@@ -800,9 +798,7 @@ MonoBehaviour:
   attackText: {fileID: 1941778322}
   healthText: {fileID: 1904482769}
   costText: {fileID: 816183885}
-  attack: 2
-  health: 10
-  cost: 3
+  stats: {fileID: 11400000, guid: c15f628c020ed477a9baab7e44ad0cd1, type: 2}
   playerIndex: 0
 --- !u!64 &196136655
 MeshCollider:
@@ -1442,9 +1438,7 @@ MonoBehaviour:
   attackText: {fileID: 429928235}
   healthText: {fileID: 863905697}
   costText: {fileID: 46822634}
-  attack: 3
-  health: 10
-  cost: 4
+  stats: {fileID: 11400000, guid: 964c54921f7294154ae8768a3066ce53, type: 2}
   playerIndex: 1
 --- !u!64 &595047857
 MeshCollider:
@@ -1665,9 +1659,7 @@ MonoBehaviour:
   attackText: {fileID: 774919820}
   healthText: {fileID: 1720810283}
   costText: {fileID: 85663029}
-  attack: 2
-  health: 10
-  cost: 3
+  stats: {fileID: 11400000, guid: 964c54921f7294154ae8768a3066ce53, type: 2}
   playerIndex: 0
 --- !u!64 &757081188
 MeshCollider:
@@ -2720,6 +2712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a84c197f474bc190bbb7a64b9230ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3556,9 +3549,7 @@ MonoBehaviour:
   attackText: {fileID: 1374545918}
   healthText: {fileID: 568289009}
   costText: {fileID: 961252877}
-  attack: 3
-  health: 10
-  cost: 4
+  stats: {fileID: 11400000, guid: c15f628c020ed477a9baab7e44ad0cd1, type: 2}
   playerIndex: 1
 --- !u!64 &1736134547
 MeshCollider:
@@ -3685,9 +3676,7 @@ MonoBehaviour:
   attackText: {fileID: 1842822477}
   healthText: {fileID: 1404824266}
   costText: {fileID: 151643647}
-  attack: 3
-  health: 10
-  cost: 4
+  stats: {fileID: 11400000, guid: 7a1a4757c8e3f49e5ae256a573e6aef1, type: 2}
   playerIndex: 1
 --- !u!64 &1817656728
 MeshCollider:
