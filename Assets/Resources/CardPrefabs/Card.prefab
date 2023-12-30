@@ -126,7 +126,7 @@ MonoBehaviour:
   healthText: {fileID: 2914057024358450479}
   costText: {fileID: 4519384206644993163}
   stats: {fileID: 11400000, guid: 964c54921f7294154ae8768a3066ce53, type: 2}
-  playerIndex: 1
+  playerIndex: 0
 --- !u!1 &5006717858992404951
 GameObject:
   m_ObjectHideFlags: 0
