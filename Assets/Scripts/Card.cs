@@ -1,7 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class Card : MonoBehaviour {
+    public EventHandler OnCardDestroyed;
+    
     [SerializeField] private TMP_Text attackText;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text costText;
@@ -33,6 +36,7 @@ public class Card : MonoBehaviour {
         _health -= damage;
         healthText.text = _health.ToString();
         if (_health <= 0) {
+            OnCardDestroyed?.Invoke(this, EventArgs.Empty);
             Destroy(gameObject); // TODO: replace with proper death handling
         }
     }
