@@ -8,7 +8,7 @@ public class Field : MonoBehaviour {
     [SerializeField] private float spacing = 1.0f;
     [SerializeField] public int playerIndex;
     
-    private List<Card> _cards = new List<Card>();
+    private List<CardOnField> _cards = new List<CardOnField>();
 
     private void Start() {
         // todo: remove this
@@ -20,7 +20,7 @@ public class Field : MonoBehaviour {
         AddCard(card3);
     }
 
-    public void AddCard(Card card) {
+    public void AddCard(CardOnField card) {
         if (_cards.Count >= MaxCards) {
             Debug.Log("Cannot add more cards to field! id: " + playerIndex);
             return;
@@ -32,7 +32,7 @@ public class Field : MonoBehaviour {
     }
 
     private void CardOnCardDestroyed(object sender, EventArgs e) {
-        var card = (Card)sender;
+        var card = (CardOnField)sender;
         _cards.Remove(card);
         RearrangeCards();
     }

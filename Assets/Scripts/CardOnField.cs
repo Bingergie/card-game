@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class Card : MonoBehaviour {
+public class CardOnField : MonoBehaviour {
     public EventHandler OnCardDestroyed;
     
     [SerializeField] private TMP_Text attackText;
@@ -12,9 +12,7 @@ public class Card : MonoBehaviour {
     [Header("Card Stats")]
     [SerializeField] private CardStats stats;
     
-    [Header("Debug")]
-    public int playerIndex;
-    
+    private int _playerIndex;
     private int _attack;
     private int _health;
     private int _cost;
@@ -23,8 +21,8 @@ public class Card : MonoBehaviour {
         SetStats(stats);
     }
 
-    public void Attack(Card target) {
-        if (target.playerIndex == playerIndex) {
+    public void Attack(CardOnField target) {
+        if (target._playerIndex == _playerIndex) {
             Debug.Log("Cannot attack your own card!");
             return;
         }
@@ -51,7 +49,11 @@ public class Card : MonoBehaviour {
         healthText.text = _health.ToString();
     }
     
+    public int GetPlayerIndex() {
+        return _playerIndex;
+    }
+    
     public void SetPlayerIndex(int index) {
-        playerIndex = index;
+        _playerIndex = index;
     }
 }

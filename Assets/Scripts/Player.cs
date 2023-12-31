@@ -5,20 +5,22 @@ public class Player {
     public List<CardStats> Deck;
 
     private Deck _remainingDeck;
-    private List<Card> _hand = new List<Card>();
-    private List<Card> _field = new List<Card>();
+    private List<CardOnField> _hand = new List<CardOnField>();
+    private List<CardOnField> _field = new List<CardOnField>();
 
     public Player(List<CardStats> deck) {
         Deck = deck;
         _remainingDeck = new Deck(deck);
     }
 
-    public void Attack(Card attacker, Card target) {
+    public void Attack(CardOnField attacker, CardOnField target) {
         attacker.Attack(target);
     }
 
     public CardStats DrawCard() {
-        return _remainingDeck.Draw();
+        var card = _remainingDeck.Draw();
+        _hand.Add(CardFactory.CreateCard(card, 0));
+        return card;
     }
 }
 
