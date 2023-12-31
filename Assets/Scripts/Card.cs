@@ -50,4 +50,8 @@ public class Card : MonoBehaviour {
         attackText.text = _attack.ToString();
         healthText.text = _health.ToString();
     }
+    
+    public void SetPlayerIndex(int index) {
+        playerIndex = index;
+    }
 }
