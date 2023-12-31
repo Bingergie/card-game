@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
 public class PlayerController : MonoBehaviour {
-    public List<CardStats> deck;
+    public List<CardData> deck;
     
     private Camera _camera;
     private Player _player;

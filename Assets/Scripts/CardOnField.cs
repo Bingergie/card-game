@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CardOnField : MonoBehaviour {
     public EventHandler OnCardDestroyed;
@@ -9,8 +10,9 @@ public class CardOnField : MonoBehaviour {
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text costText;
     
+    [FormerlySerializedAs("stats")]
     [Header("Card Stats")]
-    [SerializeField] private CardStats stats;
+    [SerializeField] private CardData data;
     
     private int _playerIndex;
     private int _attack;
@@ -18,7 +20,7 @@ public class CardOnField : MonoBehaviour {
     private int _cost;
     
     private void Start() {
-        SetStats(stats);
+        SetData(data);
     }
 
     public void Attack(CardOnField target) {
@@ -39,11 +41,11 @@ public class CardOnField : MonoBehaviour {
         }
     }
     
-    public void SetStats(CardStats cardStats) {
-        stats = cardStats;
-        _cost = cardStats.cost;
-        _attack = cardStats.attack;
-        _health = cardStats.health;
+    public void SetData(CardData cardData) {
+        data = cardData;
+        _cost = cardData.cost;
+        _attack = cardData.attack;
+        _health = cardData.health;
         costText.text = _cost.ToString();
         attackText.text = _attack.ToString();
         healthText.text = _health.ToString();

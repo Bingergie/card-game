@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player {
-    public List<CardStats> Deck;
+    public List<CardData> Deck;
 
     private Deck _remainingDeck;
     private List<CardOnField> _hand = new List<CardOnField>();
     private List<CardOnField> _field = new List<CardOnField>();
 
-    public Player(List<CardStats> deck) {
+    public Player(List<CardData> deck) {
         Deck = deck;
         _remainingDeck = new Deck(deck);
     }
@@ -17,7 +17,7 @@ public class Player {
         attacker.Attack(target);
     }
 
-    public CardStats DrawCard() {
+    public CardData DrawCard() {
         var card = _remainingDeck.Draw();
         _hand.Add(CardFactory.CreateCard(card, 0));
         return card;
@@ -25,9 +25,9 @@ public class Player {
 }
 
 public class Deck {
-    private List<CardStats> _cards;
+    private List<CardData> _cards;
 
-    public Deck(List<CardStats> cards) {
+    public Deck(List<CardData> cards) {
         _cards = cards;
     }
 
@@ -42,7 +42,7 @@ public class Deck {
         }
     }
 
-    public CardStats Draw() {
+    public CardData Draw() {
         if (_cards.Count <= 0) {
             Debug.Log("No more cards in deck!");
             return null; // or throw exception
