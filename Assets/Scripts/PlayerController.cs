@@ -1,15 +1,18 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-[RequireComponent(typeof(Player),typeof(PlayerInput),  typeof(Camera))]
+[RequireComponent(typeof(PlayerInput),  typeof(Camera))]
 public class PlayerController : MonoBehaviour {
+    public List<CardStats> deck;
+    
     private Camera _camera;
     private Player _player;
 
     [CanBeNull] private Card _selectedCard;
 
     private void Awake() {
-        _player = GetComponent<Player>();
+        _player = new Player(deck);
         _camera = GetComponent<Camera>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;

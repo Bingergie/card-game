@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 2018806363}
   - component: {fileID: 2018806362}
   - component: {fileID: 2018806361}
-  - component: {fileID: 2018806366}
   - component: {fileID: 2018806365}
   - component: {fileID: 2018806364}
   m_Layer: 0
@@ -521,6 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a84c197f474bc190bbb7a64b9230ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
 --- !u!114 &2018806365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,19 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d78bbbf82a4e0e926f9064076029d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2018806366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018806360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c4fc2078dc40e4b3245fa838f2956f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deck: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
