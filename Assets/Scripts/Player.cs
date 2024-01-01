@@ -14,7 +14,7 @@ public class Player {
     }
 
     public void Attack(CardOnField attacker, CardOnField target) {
-        attacker.Attack(target);
+        GameController.Instance.HandleAttack(attacker, target);
     }
 
     public CardData DrawCard() {

@@ -23,16 +23,7 @@ public class CardOnField : MonoBehaviour {
         SetData(data);
     }
 
-    public void Attack(CardOnField target) {
-        if (target._playerIndex == _playerIndex) {
-            Debug.Log("Cannot attack your own card!");
-            return;
-        }
-        TakeDamage(target._attack);
-        target.TakeDamage(_attack);
-    }
-
-    protected void TakeDamage(int damage) {
+    public void TakeDamage(int damage) {
         _health -= damage;
         healthText.text = _health.ToString();
         if (_health <= 0) {
@@ -57,5 +48,13 @@ public class CardOnField : MonoBehaviour {
     
     public void SetPlayerIndex(int index) {
         _playerIndex = index;
+    }
+    
+    public int GetAttack() {
+        return _attack;
+    }
+    
+    public int GetHealth() {
+        return _health;
     }
 }
