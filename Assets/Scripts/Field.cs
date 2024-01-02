@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Field : MonoBehaviour {
-    public static int MaxCards = 5;
+    public const int MaxCards = 5;
+
+    private static Field[] _fields = new Field[2];
 
     [SerializeField] private float spacing = 1.0f;
-    [SerializeField] public int playerIndex;
-    
+    [SerializeField] private int playerIndex;
+
     private List<CardOnField> _cards = new List<CardOnField>();
+    public bool IsFull => _cards.Count >= MaxCards;
+
+    private void Awake() {
+        _fields[playerIndex] = this;
+    }
 
     private void Start() {
         // todo: remove this
@@ -20,9 +27,13 @@ public class Field : MonoBehaviour {
         AddCard(card3);
     }
 
+    public static Field GetField(int playerIndex) {
+        return _fields[playerIndex];
+    }
+
     public void AddCard(CardOnField card) {
         if (_cards.Count >= MaxCards) {
-            Debug.Log("Cannot add more cards to field! id: " + playerIndex);
+            Debug.LogError("Cannot add more cards to field! id: " + playerIndex);
             return;
         }
 

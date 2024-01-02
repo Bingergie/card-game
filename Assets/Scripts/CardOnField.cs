@@ -21,10 +21,9 @@ public class CardOnField : MonoBehaviour {
     private DamageableEntity _damageableEntity;
 
     public static CardOnField CreateCard(Card cardObject, int playerIndex) {
-        var gameObject = Instantiate(Resources.Load<GameObject>("CardPrefabs/Card"));
-        var card = gameObject.GetComponent<CardOnField>();
+        var card = Instantiate(Resources.Load<CardOnField>("CardPrefabs/CardOnField"));
         card.PlayerIndex = playerIndex;
-        card.CardObject = cardObject;
+        card.SetCard(cardObject);
         return card;
     }
 
@@ -35,8 +34,13 @@ public class CardOnField : MonoBehaviour {
 
         _damageableEntity = GetComponent<DamageableEntity>();
         _damageableEntity.OnDeath += HandleDeath;
-        _damageableEntity.SetHealthToMax(MaxHealth);
         
+        SetCard(CardObject);
+    }
+    
+    private void SetCard(Card card) {
+        CardObject = card;
+        _damageableEntity.SetHealthToMax(MaxHealth);
         costText.text = Cost.ToString();
         attackText.text = Attack.ToString();
         healthText.text = Health.ToString();

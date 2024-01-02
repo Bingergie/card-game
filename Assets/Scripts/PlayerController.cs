@@ -46,4 +46,10 @@ public class PlayerController : MonoBehaviour {
 
     private void InputOnMouseMove(object sender, Vector3 mousePosition) {
     }
+    
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            _player.PlayCard(_player.DrawCard());
+        }
+    }
 }

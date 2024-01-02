@@ -6,7 +6,7 @@ public class Player {
     public readonly int PlayerIndex;
 
     private Deck _remainingDeck;
-    private List<CardOnField> _hand = new List<CardOnField>();
+    private List<CardInHand> _hand = new List<CardInHand>();
     private List<CardOnField> _field = new List<CardOnField>();
 
     public Player(List<CardData> deck, int playerIndex = 0) { // todo: remove " = 0"
@@ -19,12 +19,32 @@ public class Player {
         GameController.Instance.HandleAttack(attacker, target);
     }
 
-    public Card DrawCard() {
+    public CardInHand DrawCard() {
         var card = _remainingDeck.DrawCard();
-        if (card != null) {
-            _hand.Add(CardOnField.CreateCard(card, PlayerIndex));
+        if (card == null) {
+            Debug.Log("No more cards in deck!");
+            // return null;
+            card = new Card(Resources.Load<CardData>("CardData/default")); // todo: remove this
         }
-        return card;
+        var cardInHand = CardInHand.CreateCard(card, PlayerIndex);
+        _hand.Add(cardInHand);
+        return cardInHand;
+    }
+    
+    public void PlayCard(CardInHand card) {
+        if (_hand.Find(c => c == card) == null) {
+            Debug.LogError("Card not found in hand! id: " + PlayerIndex);
+            return;
+        }
+        
+        if (_field.Count >= Field.MaxCards) {
+            Debug.Log("Cannot add more cards to field! id: " + PlayerIndex);
+            return;
+        }
+        
+        _hand.Remove(card);
+        var cardOnField = GameController.Instance.HandlePlayCard(card);
+        _field.Add(cardOnField);
     }
 }
 
