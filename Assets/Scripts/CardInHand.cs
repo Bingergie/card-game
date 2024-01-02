@@ -16,7 +16,7 @@ public class CardInHand : MonoBehaviour {
     public static CardInHand CreateCard(Card cardObject, int playerIndex) {
         var card = Instantiate(Resources.Load<CardInHand>("CardPrefabs/CardInHand"));
         card.PlayerIndex = playerIndex;
-        card.CardObject = cardObject;
+        card.SetCard(cardObject);
         return card;
     }
     
@@ -25,6 +25,11 @@ public class CardInHand : MonoBehaviour {
             CardObject = new Card(Resources.Load<CardData>("CardData/default"));
         }
         
+        SetCard(CardObject);
+    }
+    
+    private void SetCard(Card card) {
+        CardObject = card;
         costText.text = Cost.ToString();
         attackText.text = Attack.ToString();
         healthText.text = MaxHealth.ToString();
