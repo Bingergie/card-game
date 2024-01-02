@@ -11,12 +11,9 @@ public class CardOnField : MonoBehaviour {
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text costText;
     
-    [FormerlySerializedAs("stats")]
-    [Header("Card Stats")]
-    [SerializeField] private CardData data;
-    
     public int PlayerIndex { get; private set; }
     public int Attack => _card.Attack;
+    public int MaxHealth => _card.MaxHealth;
     public int Health => _damageableEntity.Health;
     public int Cost => _card.Cost;
         
@@ -36,12 +33,11 @@ public class CardOnField : MonoBehaviour {
             _card = new Card(Resources.Load<CardData>("CardData/default"));
         }
         _damageableEntity = GetComponent<DamageableEntity>();
-        _damageableEntity.SetHealthToMax(data.health);
         _damageableEntity.OnDeath += HandleDeath;
-    }
-    
-    private void Start() {
-        SetData(data);
+        _damageableEntity.SetHealthToMax(MaxHealth);
+        costText.text = Cost.ToString();
+        attackText.text = Attack.ToString();
+        healthText.text = Health.ToString();
     }
 
     public void TakeDamage(int damage) {
@@ -53,12 +49,4 @@ public class CardOnField : MonoBehaviour {
         OnCardDestroyed?.Invoke(this, EventArgs.Empty);
         Destroy(gameObject); // TODO: replace with proper death handling
     }
-    
-    public void SetData(CardData cardData) {
-        data = cardData;
-        _damageableEntity.SetHealthToMax(cardData.health);
-        costText.text = Cost.ToString();
-        attackText.text = Attack.ToString();
-        healthText.text = Health.ToString();
-    } 
 }
