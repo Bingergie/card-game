@@ -36,6 +36,7 @@ public class CardOnField : MonoBehaviour {
         _damageableEntity = GetComponent<DamageableEntity>();
         _damageableEntity.OnDeath += HandleDeath;
         _damageableEntity.SetHealthToMax(MaxHealth);
+        
         costText.text = Cost.ToString();
         attackText.text = Attack.ToString();
         healthText.text = Health.ToString();
