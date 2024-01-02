@@ -41,13 +41,17 @@ public class CardOnField : MonoBehaviour {
     private void SetCard(Card card) {
         CardObject = card;
         _damageableEntity.SetHealthToMax(MaxHealth);
-        costText.text = Cost.ToString();
-        attackText.text = Attack.ToString();
-        healthText.text = Health.ToString();
+        UpdateText();
     }
 
     public void TakeDamage(int damage) {
         _damageableEntity.TakeDamage(damage);
+        UpdateText();
+    }
+    
+    private void UpdateText() {
+        costText.text = Cost.ToString();
+        attackText.text = Attack.ToString();
         healthText.text = Health.ToString();
     }
 
