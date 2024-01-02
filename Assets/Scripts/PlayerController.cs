@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour {
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit)) {
             var targetCard = hit.collider.GetComponent<CardOnField>();
-            if (_selectedCard != null && targetCard != null &&
-                targetCard.GetPlayerIndex() != _selectedCard.GetPlayerIndex()) {
+            if (_selectedCard != null && targetCard != null && 
+                targetCard.PlayerIndex != _selectedCard.PlayerIndex) {
                 _player.Attack(_selectedCard, targetCard);
                 _selectedCard = null; // todo: unhighlight selected card
                 Debug.Log("Attacked card " + targetCard.name);

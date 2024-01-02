@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(DamageableEntity))]
 public class CardOnField : MonoBehaviour {
     public EventHandler OnCardDestroyed;
     
@@ -14,47 +15,50 @@ public class CardOnField : MonoBehaviour {
     [Header("Card Stats")]
     [SerializeField] private CardData data;
     
-    private int _playerIndex;
-    private int _attack;
-    private int _health;
-    private int _cost;
+    public int PlayerIndex { get; private set; }
+    public int Attack => _card.Attack;
+    public int Health => _damageableEntity.Health;
+    public int Cost => _card.Cost;
+        
+    private Card _card;
+    private DamageableEntity _damageableEntity;
+    
+    public static CardOnField CreateCard(Card cardObject, int playerIndex) {
+        var gameObject = Instantiate(Resources.Load<GameObject>("CardPrefabs/Card"));
+        var card = gameObject.GetComponent<CardOnField>();
+        card.PlayerIndex = playerIndex;
+        card._card = cardObject;
+        return card;
+    }
+    
+    private void Awake() {
+        if (_card == null) {
+            _card = new Card(Resources.Load<CardData>("CardData/default"));
+        }
+        _damageableEntity = GetComponent<DamageableEntity>();
+        _damageableEntity.SetHealthToMax(data.health);
+        _damageableEntity.OnDeath += HandleDeath;
+    }
     
     private void Start() {
         SetData(data);
     }
 
     public void TakeDamage(int damage) {
-        _health -= damage;
-        healthText.text = _health.ToString();
-        if (_health <= 0) {
-            OnCardDestroyed?.Invoke(this, EventArgs.Empty);
-            Destroy(gameObject); // TODO: replace with proper death handling
-        }
+        _damageableEntity.TakeDamage(damage);
+        healthText.text = Health.ToString();
+    }
+    
+    private void HandleDeath(object sender, EventArgs e) {
+        OnCardDestroyed?.Invoke(this, EventArgs.Empty);
+        Destroy(gameObject); // TODO: replace with proper death handling
     }
     
     public void SetData(CardData cardData) {
         data = cardData;
-        _cost = cardData.cost;
-        _attack = cardData.attack;
-        _health = cardData.health;
-        costText.text = _cost.ToString();
-        attackText.text = _attack.ToString();
-        healthText.text = _health.ToString();
-    }
-    
-    public int GetPlayerIndex() {
-        return _playerIndex;
-    }
-    
-    public void SetPlayerIndex(int index) {
-        _playerIndex = index;
-    }
-    
-    public int GetAttack() {
-        return _attack;
-    }
-    
-    public int GetHealth() {
-        return _health;
-    }
+        _damageableEntity.SetHealthToMax(cardData.health);
+        costText.text = Cost.ToString();
+        attackText.text = Attack.ToString();
+        healthText.text = Health.ToString();
+    } 
 }

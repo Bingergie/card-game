@@ -13,8 +13,8 @@ public class GameController : MonoBehaviour {
         Instance = this;
     }
 
-    public void HandleAttack(CardOnField attacker, CardOnField defender) {
-        attacker.TakeDamage(defender.GetAttack());
-        defender.TakeDamage(attacker.GetAttack());
+    public void HandleAttack(CardOnField attacker, CardOnField defender) { // todo: make this queue attack instead
+        attacker.TakeDamage(defender.Attack);
+        defender.TakeDamage(attacker.Attack);
     }
 }

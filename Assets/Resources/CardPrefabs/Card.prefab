@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8658317908032505239}
   - component: {fileID: 8470023964011192904}
   - component: {fileID: 8162896546489437803}
+  - component: {fileID: 3507522603012212042}
   - component: {fileID: 6262779413565249670}
   m_Layer: 0
   m_Name: Card
@@ -110,6 +111,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3507522603012212042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2859869558480741903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcccae2ab984626a0b63b29390db642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6262779413565249670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,8 +138,7 @@ MonoBehaviour:
   attackText: {fileID: 688419139521209178}
   healthText: {fileID: 2914057024358450479}
   costText: {fileID: 4519384206644993163}
-  stats: {fileID: 11400000, guid: 964c54921f7294154ae8768a3066ce53, type: 2}
-  playerIndex: 0
+  data: {fileID: 11400000, guid: 964c54921f7294154ae8768a3066ce53, type: 2}
 --- !u!1 &5006717858992404951
 GameObject:
   m_ObjectHideFlags: 0
