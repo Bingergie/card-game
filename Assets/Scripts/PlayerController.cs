@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,9 +10,15 @@ public class PlayerController : MonoBehaviour {
     private Camera _camera;
     private Player _player;
 
-    [CanBeNull] private CardOnField _selectedCard;
+    [CanBeNull] private CardOnField _selectedCardOnField;
 
     private void Awake() {
+        for (int i = 0; i < deck.Count; i++) {
+            if (deck[i] == null) {
+                Debug.LogError("Card data is null! id: " + i);
+                deck[i] = Resources.Load<CardData>("CardData/default");
+            }
+        }
         _player = new Player(deck);
         _camera = GetComponent<Camera>();
         var input = GetComponent<PlayerInput>();
@@ -24,8 +31,8 @@ public class PlayerController : MonoBehaviour {
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit, 1000)) {
             var card = hit.collider.GetComponent<CardOnField>();
-            if (card != null) { // todo: check if card is on player's side
-                _selectedCard = card; // todo: highlight selected card
+            if (card != null && card.PlayerIndex == _player.PlayerIndex) {
+                _selectedCardOnField = card; // todo: highlight selected card
                 Debug.Log("Selected card " + card.name);
             }
         }
@@ -35,10 +42,10 @@ public class PlayerController : MonoBehaviour {
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit)) {
             var targetCard = hit.collider.GetComponent<CardOnField>();
-            if (_selectedCard != null && targetCard != null && 
-                targetCard.PlayerIndex != _selectedCard.PlayerIndex) {
-                _player.Attack(_selectedCard, targetCard);
-                _selectedCard = null; // todo: unhighlight selected card
+            if (_selectedCardOnField != null && targetCard != null && 
+                targetCard.PlayerIndex != _selectedCardOnField.PlayerIndex) {
+                _player.Attack(_selectedCardOnField, targetCard);
+                _selectedCardOnField = null; // todo: unhighlight selected card
                 Debug.Log("Attacked card " + targetCard.name);
             }
         }
