@@ -13,10 +13,6 @@ public class Field : MonoBehaviour {
     private List<CardOnField> _cards = new List<CardOnField>();
     public bool IsFull => _cards.Count >= MaxCards;
 
-    private void Awake() {
-        _fields[playerIndex] = this;
-    }
-
     private void Start() {
         // todo: remove this
         var card1 = CardFactory.CreateCard(Resources.Load<CardData>("CardData/default"), playerIndex);
@@ -25,6 +21,13 @@ public class Field : MonoBehaviour {
         AddCard(card1);
         AddCard(card2);
         AddCard(card3);
+    }
+    
+    public static Field CreateField(int playerIndex) {
+        var field = Instantiate(Resources.Load<Field>("CardPrefabs/Field"));
+        field.playerIndex = playerIndex;
+        _fields[playerIndex] = field;
+        return field;
     }
 
     public static Field GetField(int playerIndex) {

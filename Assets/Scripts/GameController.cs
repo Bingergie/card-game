@@ -5,15 +5,8 @@ public class GameController : Singleton<GameController> {
     public EventHandler<int> OnPlayerWin;
 
     private void Start() {
-        SpawnUI();
+        UIController.Instance.SpawnUI(0);
         OnPlayerWin += HandleWin;
-    }
-    
-    private void SpawnUI() { // todo: move this to a UI controller
-        var player = PlayerCharacter.CreateCharacter(0);
-        player.transform.position = new Vector3(0, -3.5f, -7.5f);
-        var opponent = PlayerCharacter.CreateCharacter(1);
-        opponent.transform.position = new Vector3(0, -3.5f, 7.5f);
     }
 
     private void HandleWin(object sender, int e) {
