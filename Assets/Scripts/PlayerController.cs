@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
@@ -40,28 +41,39 @@ public class PlayerController : MonoBehaviour {
 
     private void InputOnMouseUp(object sender, Vector3 mousePosition) {
         var ray = _camera.ScreenPointToRay(mousePosition);
-        if (Physics.Raycast(ray, out var hit, 1000, LayerMask.GetMask("CardOnField"))) {
-            var targetCard = hit.collider.GetComponent<CardOnField>();
-            if (_selectedCardOnField != null && targetCard != null && 
-                targetCard.PlayerIndex != _selectedCardOnField.PlayerIndex) {
-                _player.Attack(_selectedCardOnField, targetCard);
-                _selectedCardOnField = null; // todo: unhighlight selected card
-                Debug.Log("Attacked card " + targetCard.name);
-            }
-            return;
-        }
+        if (Physics.Raycast(ray, out var hit)) {
+            if (_selectedCardOnField == null) return;
 
-        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("PlayerCharacter"))) {
-            var playerCharacter = hit.collider.GetComponent<PlayerCharacter>();
-            Debug.Log("Hit " + playerCharacter);
-            if (_selectedCardOnField != null && playerCharacter != null && 
-                playerCharacter.PlayerIndex != _selectedCardOnField.PlayerIndex) {
-                _player.Attack(_selectedCardOnField, playerCharacter);
-                _selectedCardOnField = null; // todo: unhighlight selected card
-                Debug.Log("Attacked player " + playerCharacter.name);
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("CardOnField")) {
+                var targetCard = hit.collider.GetComponent<CardOnField>();
+                if (targetCard == null) {
+                    Debug.LogError("No cardOnField component on object! id: " + hit.collider.name);
+                    return;
+                }
+
+                if (targetCard.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
+                
+                _player.Attack(_selectedCardOnField, targetCard);
+                Debug.Log("Attacked card " + targetCard.name);
+                return;
             }
-            return;
+            
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerCharacter")) {
+                var playerCharacter = hit.collider.GetComponent<PlayerCharacter>();
+                if (playerCharacter == null) {
+                    Debug.LogError("No playerCharacter component on object! id: " + hit.collider.name);
+                    return;
+                }
+
+                if (playerCharacter.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
+                
+                _player.Attack(_selectedCardOnField, playerCharacter);
+                Debug.Log("Attacked player character " + playerCharacter.name);
+                return;
+            }
         }
+        
+        _selectedCardOnField = null; // todo: unhighlight selected card
     }
 
     private void InputOnMouseMove(object sender, Vector3 mousePosition) {
