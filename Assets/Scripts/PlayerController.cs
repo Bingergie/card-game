@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
     private void InputOnMouseUp(object sender, Vector3 mousePosition) {
         var ray = _camera.ScreenPointToRay(mousePosition);
-        if (Physics.Raycast(ray, out var hit)) {
+        if (Physics.Raycast(ray, out var hit, 1000, LayerMask.GetMask("CardOnField"))) {
             var targetCard = hit.collider.GetComponent<CardOnField>();
             if (_selectedCardOnField != null && targetCard != null && 
                 targetCard.PlayerIndex != _selectedCardOnField.PlayerIndex) {
@@ -48,6 +48,19 @@ public class PlayerController : MonoBehaviour {
                 _selectedCardOnField = null; // todo: unhighlight selected card
                 Debug.Log("Attacked card " + targetCard.name);
             }
+            return;
+        }
+
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("PlayerCharacter"))) {
+            var playerCharacter = hit.collider.GetComponent<PlayerCharacter>();
+            Debug.Log("Hit " + playerCharacter);
+            if (_selectedCardOnField != null && playerCharacter != null && 
+                playerCharacter.PlayerIndex != _selectedCardOnField.PlayerIndex) {
+                _player.Attack(_selectedCardOnField, playerCharacter);
+                _selectedCardOnField = null; // todo: unhighlight selected card
+                Debug.Log("Attacked player " + playerCharacter.name);
+            }
+            return;
         }
     }
 

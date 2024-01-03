@@ -18,13 +18,17 @@ public class Player {
     public void Attack(CardOnField attacker, CardOnField target) {
         GameController.Instance.HandleAttack(attacker, target);
     }
+    
+    public void Attack(CardOnField attacker, PlayerCharacter target) {
+        GameController.Instance.HandleAttack(attacker, target);
+    }
 
     public CardInHand DrawCard() {
         var card = _remainingDeck.DrawCard();
         if (card == null) {
-            Debug.Log("No more cards in deck!");
-            // return null;
-            card = new Card(Resources.Load<CardData>("CardData/default")); // todo: remove this
+            Debug.Log("No more cards in deck, you lose!");
+            GameController.Instance.OnPlayerWin?.Invoke(this, 1 - PlayerIndex);
+            return null;
         }
         var cardInHand = CardInHand.CreateCard(card, PlayerIndex);
         _hand.Add(cardInHand);
@@ -38,7 +42,7 @@ public class Player {
         }
         
         if (_field.Count >= Field.MaxCards) {
-            Debug.Log("Cannot add more cards to field! id: " + PlayerIndex);
+            Debug.LogError("Cannot add more cards to field! id: " + PlayerIndex);
             return;
         }
         

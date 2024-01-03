@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2283858553375957313}
   - component: {fileID: 8856441688214777309}
   - component: {fileID: 5767927464545866769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 6511543033722443387}
   - component: {fileID: 5323529037627854404}
   - component: {fileID: 6957159772284328023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 9171423105694482369}
   - component: {fileID: 4859838265072502962}
   - component: {fileID: 826748449801359692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CardOnField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 1007247740122976057}
   - component: {fileID: 8899911136715235295}
   - component: {fileID: 3666974103742874982}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Att
   m_TagString: Untagged
   m_Icon: {fileID: 0}

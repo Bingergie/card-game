@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1290615510609134698}
   - component: {fileID: 6082686889109745976}
   - component: {fileID: 6322106513937171403}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4447909396765234724}
   - component: {fileID: 1708590726829294827}
   - component: {fileID: 4716534285528685167}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 8094244705473537653}
   - component: {fileID: 6512510941004936318}
   - component: {fileID: 6956214324079672346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Att
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 2057899247756623112}
   - component: {fileID: 1751019227805471019}
   - component: {fileID: 9170993372822188768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CardInHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
