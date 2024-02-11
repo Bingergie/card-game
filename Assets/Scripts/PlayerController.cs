@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,7 +19,7 @@ public class PlayerController : MonoBehaviour {
                 deck[i] = Resources.Load<CardData>("CardData/default");
             }
         }
-        _player = new Player(deck);
+        _player = new Player(deck); // todo move to GameController
         _camera = GetComponent<Camera>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;
