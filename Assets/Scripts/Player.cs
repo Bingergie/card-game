@@ -11,7 +11,7 @@ public class Player {
 
     public bool IsTurn => TurnManager.Instance.CurrentPlayerIndex == PlayerIndex;
     
-    public Player(List<CardData> deck, int playerIndex = 0) { // todo: remove " = 0"
+    public Player(List<CardData> deck, int playerIndex) {
         DeckList = deck;
         PlayerIndex = playerIndex;
         _remainingDeck = new Deck(deck).Shuffle();

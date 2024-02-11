@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
 public class PlayerController : MonoBehaviour {
     public List<CardData> deck;
-    
+
     private Camera _camera;
     private Player _player;
 
@@ -18,17 +18,22 @@ public class PlayerController : MonoBehaviour {
                 deck[i] = Resources.Load<CardData>("CardData/default");
             }
         }
-        _player = new Player(deck); // todo move to GameController
+
         _camera = GetComponent<Camera>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;
         input.OnMouseUp += InputOnMouseUp;
         input.OnMouseMove += InputOnMouseMove;
+        GameController.Instance.OnGameStart += OnGameStart;
+    }
+
+    private void OnGameStart(object sender, int playerIndex) {
+        _player = new Player(deck, playerIndex);
     }
 
     private void InputOnMouseDown(object sender, Vector3 mousePosition) {
         if (!_player.IsTurn) return;
-        
+
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit, 1000)) {
             var card = hit.collider.GetComponent<CardOnField>();
@@ -52,12 +57,12 @@ public class PlayerController : MonoBehaviour {
                 }
 
                 if (targetCard.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
-                
+
                 _player.Attack(_selectedCardOnField, targetCard);
                 Debug.Log("Attacked card " + targetCard.name);
                 return;
             }
-            
+
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerCharacter")) {
                 var playerCharacter = hit.collider.GetComponent<PlayerCharacter>();
                 if (playerCharacter == null) {
@@ -66,19 +71,19 @@ public class PlayerController : MonoBehaviour {
                 }
 
                 if (playerCharacter.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
-                
+
                 _player.Attack(_selectedCardOnField, playerCharacter);
                 Debug.Log("Attacked player character " + playerCharacter.name);
                 return;
             }
         }
-        
+
         _selectedCardOnField = null; // todo: unhighlight selected card
     }
 
     private void InputOnMouseMove(object sender, Vector3 mousePosition) {
     }
-    
+
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             _player.PlayCard(_player.DrawCard());
