@@ -7,7 +7,7 @@ public class UIController : Singleton<UIController> {
     [SerializeField] private Transform playerFieldSpawn;
     [SerializeField] private Transform opponentFieldSpawn;
 
-    private void Start() {
+    private void Awake() {
         GameController.Instance.OnGameStart += SpawnUI;
     }
 
