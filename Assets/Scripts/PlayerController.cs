@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInput), typeof(Camera))]
+[RequireComponent(typeof(PlayerInput), typeof(Player), typeof(Camera))]
 public class PlayerController : MonoBehaviour {
-    public List<CardData> deck;
-
     private Camera _camera;
     private Player _player;
 
@@ -14,15 +12,11 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake() {
         _camera = GetComponent<Camera>();
+        _player = GetComponent<Player>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;
         input.OnMouseUp += InputOnMouseUp;
         input.OnMouseMove += InputOnMouseMove;
-        GameController.Instance.OnGameStart += OnGameStart;
-    }
-
-    private void OnGameStart(object sender, EventArgs e) {
-        _player = new Player(deck, 0);
     }
 
     private void InputOnMouseDown(object sender, Vector3 mousePosition) {

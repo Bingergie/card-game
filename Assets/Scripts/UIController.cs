@@ -2,10 +2,17 @@ using System;
 using UnityEngine;
 
 public class UIController : Singleton<UIController> {
-    [SerializeField] private Transform playerCharacterSpawn;
-    [SerializeField] private Transform opponentCharacterSpawn;
-    [SerializeField] private Transform playerFieldSpawn;
-    [SerializeField] private Transform opponentFieldSpawn;
+    [SerializeField] private int activePlayerIndex = 0;
+    
+    [SerializeField] private Transform playerCharacterLocation;
+    [SerializeField] private Transform opponentCharacterLocation;
+    [SerializeField] private Transform playerFieldLocation;
+    [SerializeField] private Transform opponentFieldLocation;
+    
+    private PlayerCharacter playerCharacter;
+    private PlayerCharacter opponentCharacter;
+    private Field playerField;
+    private Field opponentField;
 
     protected override void Awake() {
         base.Awake();

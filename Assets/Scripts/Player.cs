@@ -1,22 +1,36 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player {
-    public List<CardData> DeckList { get; private set; }
-    public readonly int PlayerIndex;
+public class Player : MonoBehaviour {
+    [SerializeField] private List<CardData> deckList;
+    public List<CardData> DeckList => deckList;
+    
+    [SerializeField, Range(0, 1)] private int playerIndex;
+    public int PlayerIndex => playerIndex;
 
-    private Deck _remainingDeck;
-    private List<CardInHand> _hand = new List<CardInHand>();
-    private List<CardOnField> _field = new List<CardOnField>();
+    [DoNotSerialize] private Deck _remainingDeck;
+    [DoNotSerialize] private List<CardInHand> _hand = new List<CardInHand>();
+    [DoNotSerialize] private List<CardOnField> _field = new List<CardOnField>();
 
     public bool IsTurn => TurnManager.Instance.CurrentPlayerIndex == PlayerIndex;
-    
-    public Player(List<CardData> deck, int playerIndex) {
-        DeckList = deck;
-        PlayerIndex = playerIndex;
-        _remainingDeck = new Deck(deck).Shuffle();
+
+    private void HandleTurnStart(object sender, int e) {
+        // todo
+        
+        // if not my turn, return
+        
+        // gain mana
+        // draw card
     }
 
+    private void Start() {
+        _remainingDeck = new Deck(deckList).Shuffle();
+        
+        TurnManager.Instance.OnTurnStart += HandleTurnStart;
+    }
+    
     public void Attack(CardOnField attacker, CardOnField target) {
         GameController.Instance.HandleAttack(attacker, target);
     }
