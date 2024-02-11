@@ -7,11 +7,14 @@ public class UIController : Singleton<UIController> {
     [SerializeField] private Transform playerFieldSpawn;
     [SerializeField] private Transform opponentFieldSpawn;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         GameController.Instance.OnGameStart += SpawnUI;
     }
 
-    private void SpawnUI(object sender, int playerIndex) {
+    private void SpawnUI(object sender, EventArgs e) {
+        var playerIndex = 0;
+        
         var player = PlayerCharacter.CreateCharacter(playerIndex);
         player.transform.position = playerCharacterSpawn.position;
         var opponent = PlayerCharacter.CreateCharacter(1 - playerIndex);

@@ -2,19 +2,12 @@ using System;
 using UnityEngine;
 
 public class GameController : Singleton<GameController> {
-    public EventHandler<int> OnGameStart;
+    public EventHandler OnGameStart;
     public EventHandler<int> OnPlayerWin;
-    
-    public int ActivePlayerIndex { get; private set; }
 
     private void Start() {
-        OnGameStart += HandleGameStart;
         OnPlayerWin += HandleWin;
-        OnGameStart?.Invoke(this, 0);
-    }
-    
-    private void HandleGameStart(object sender, int playerIndex) {
-        ActivePlayerIndex = playerIndex;
+        OnGameStart?.Invoke(this, EventArgs.Empty);
     }
 
     private void HandleWin(object sender, int e) {

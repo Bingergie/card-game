@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -20,8 +21,8 @@ public class PlayerController : MonoBehaviour {
         GameController.Instance.OnGameStart += OnGameStart;
     }
 
-    private void OnGameStart(object sender, int playerIndex) {
-        _player = new Player(deck, playerIndex);
+    private void OnGameStart(object sender, EventArgs e) {
+        _player = new Player(deck, 0);
     }
 
     private void InputOnMouseDown(object sender, Vector3 mousePosition) {
