@@ -12,7 +12,6 @@ public class UIController : Singleton<UIController> {
     }
 
     private void SpawnUI(object sender, int playerIndex) {
-        Debug.Log("spawning ui");
         var player = PlayerCharacter.CreateCharacter(playerIndex);
         player.transform.position = playerCharacterSpawn.position;
         var opponent = PlayerCharacter.CreateCharacter(1 - playerIndex);
