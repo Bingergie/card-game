@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput), typeof(Camera))]
@@ -28,6 +27,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void InputOnMouseDown(object sender, Vector3 mousePosition) {
+        if (!_player.IsTurn) return;
+        
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit, 1000)) {
             var card = hit.collider.GetComponent<CardOnField>();
