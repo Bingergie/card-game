@@ -15,9 +15,9 @@ public class Field : MonoBehaviour {
 
     private void Start() {
         // todo: remove this
-        var card1 = CardFactory.CreateCard(Resources.Load<CardData>("CardData/default"), playerIndex);
-        var card2 = CardFactory.CreateCard(Resources.Load<CardData>("CardData/default2"), playerIndex);
-        var card3 = CardFactory.CreateCard(Resources.Load<CardData>("CardData/default3"), playerIndex);
+        var card1 = CardOnField.CreateCard(new Card(CardData.DefaultCard), playerIndex);
+        var card2 = CardOnField.CreateCard(new Card(CardData.DefaultCard2), playerIndex);
+        var card3 = CardOnField.CreateCard(new Card(CardData.DefaultCard3), playerIndex);
         AddCard(card1);
         AddCard(card2);
         AddCard(card3);
