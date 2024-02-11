@@ -12,13 +12,6 @@ public class PlayerController : MonoBehaviour {
     [CanBeNull] private CardOnField _selectedCardOnField;
 
     private void Awake() {
-        for (int i = 0; i < deck.Count; i++) {
-            if (deck[i] == null) {
-                Debug.LogError("Card data is null! id: " + i);
-                deck[i] = Resources.Load<CardData>("CardData/default");
-            }
-        }
-
         _camera = GetComponent<Camera>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;
