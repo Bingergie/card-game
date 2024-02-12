@@ -15,12 +15,9 @@ public class Field : MonoBehaviour {
 
     private void Start() {
         // todo: remove this
-        var card1 = CardOnField.CreateCard(new Card(CardData.DefaultCard), playerIndex);
-        var card2 = CardOnField.CreateCard(new Card(CardData.DefaultCard2), playerIndex);
-        var card3 = CardOnField.CreateCard(new Card(CardData.DefaultCard3), playerIndex);
-        AddCard(card1);
-        AddCard(card2);
-        AddCard(card3);
+        AddCard(new Card(CardData.DefaultCard));
+        AddCard(new Card(CardData.DefaultCard2));
+        AddCard(new Card(CardData.DefaultCard3));
     }
     
     public static Field CreateField(int playerIndex) {
@@ -34,18 +31,20 @@ public class Field : MonoBehaviour {
         return _fields[playerIndex];
     }
 
-    public void AddCard(CardOnField card) {
+    public void AddCard(Card card1) {
         if (_cards.Count >= MaxCards) {
             Debug.LogError("Cannot add more cards to field! id: " + playerIndex);
             return;
         }
 
+        var card = CardOnField.CreateCard(card1, playerIndex);
         _cards.Add(card);
-        card.OnCardDestroyed += CardOnCardDestroyed;
+        card.transform.SetParent(transform);
+        card.OnCardDestroyed += HandleOnCardDestroyed;
         RearrangeCards();
     }
 
-    private void CardOnCardDestroyed(object sender, EventArgs e) {
+    private void HandleOnCardDestroyed(object sender, EventArgs e) {
         var card = (CardOnField)sender;
         _cards.Remove(card);
         RearrangeCards();

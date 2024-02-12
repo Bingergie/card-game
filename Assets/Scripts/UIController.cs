@@ -16,20 +16,35 @@ public class UIController : Singleton<UIController> {
 
     protected override void Awake() {
         base.Awake();
-        GameController.Instance.OnGameStart += SpawnUI;
+        GameController.Instance.OnGameStart += HandleOnGameStart;
     }
 
-    private void SpawnUI(object sender, EventArgs e) {
-        var playerIndex = 0;
+    public void SwitchActivePlayer() {
+        Debug.Log("Switching active player");
+        activePlayerIndex = 1 - activePlayerIndex;
         
-        var player = PlayerCharacter.CreateCharacter(playerIndex);
-        player.transform.position = playerCharacterSpawn.position;
-        var opponent = PlayerCharacter.CreateCharacter(1 - playerIndex);
-        opponent.transform.position = opponentCharacterSpawn.position;
+        (playerCharacter, opponentCharacter) = (opponentCharacter, playerCharacter);
+        (playerField, opponentField) = (opponentField, playerField);
         
-        var playerField = Field.CreateField(playerIndex);
-        playerField.transform.position = playerFieldSpawn.position;
-        var opponentField = Field.CreateField(1 - playerIndex);
-        opponentField.transform.position = opponentFieldSpawn.position;
+        UpdateCharacterAndFieldPositions();
+    }
+
+    private void HandleOnGameStart(object sender, EventArgs e) {
+        playerCharacter = PlayerCharacter.CreateCharacter(activePlayerIndex);
+        opponentCharacter = PlayerCharacter.CreateCharacter(1 - activePlayerIndex);
+        
+        playerField = Field.CreateField(activePlayerIndex);
+        opponentField = Field.CreateField(1 - activePlayerIndex);
+        
+        UpdateCharacterAndFieldPositions();
+    }
+    
+    private void UpdateCharacterAndFieldPositions() {
+        Debug.Log("Updating character and field positions");
+        playerCharacter.transform.position = playerCharacterLocation.position;
+        opponentCharacter.transform.position = opponentCharacterLocation.position;
+
+        playerField.transform.position = playerFieldLocation.position;
+        opponentField.transform.position = opponentFieldLocation.position;
     }
 }

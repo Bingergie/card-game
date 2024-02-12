@@ -36,7 +36,7 @@ public class GameController : Singleton<GameController> {
         }
 
         var cardOnField = CardOnField.CreateCard(card.CardObject, card.PlayerIndex);
-        field.AddCard(cardOnField);
+        field.AddCard(card.CardObject);
         Destroy(card.gameObject);
         return cardOnField;
     }
