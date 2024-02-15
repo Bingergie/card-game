@@ -154,6 +154,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &378663510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378663512}
+  - component: {fileID: 378663511}
+  m_Layer: 0
+  m_Name: Opponent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &378663511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378663510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c4fc2078dc40e4b3245fa838f2956f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckList:
+  - {fileID: 0}
+  playerIndex: 1
+--- !u!4 &378663512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378663510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566783233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,6 +1187,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1822474430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822474432}
+  - component: {fileID: 1822474431}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1822474431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822474430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c4fc2078dc40e4b3245fa838f2956f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckList:
+  - {fileID: 0}
+  playerIndex: 0
+--- !u!4 &1822474432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822474430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1898219542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1346,6 @@ GameObject:
   - component: {fileID: 2018806361}
   - component: {fileID: 2018806365}
   - component: {fileID: 2018806364}
-  - component: {fileID: 2018806366}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1346,6 +1439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a84c197f474bc190bbb7a64b9230ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1822474431}
 --- !u!114 &2018806365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,20 +1452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d78bbbf82a4e0e926f9064076029d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2018806366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018806360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c4fc2078dc40e4b3245fa838f2956f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deckList: []
-  playerIndex: 0
 --- !u!1 &2130693144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1510,8 @@ SceneRoots:
   - {fileID: 1534882570}
   - {fileID: 1292153994}
   - {fileID: 2130693145}
+  - {fileID: 1822474432}
+  - {fileID: 378663512}
   - {fileID: 1898219543}
   - {fileID: 984041484}
   - {fileID: 77991425}

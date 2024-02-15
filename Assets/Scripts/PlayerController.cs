@@ -2,30 +2,42 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[RequireComponent(typeof(PlayerInput), typeof(Player), typeof(Camera))]
+[RequireComponent(typeof(PlayerInput), typeof(Camera))]
 public class PlayerController : MonoBehaviour {
     private Camera _camera;
-    private Player _player;
+    [SerializeField] private Player player;
 
     [CanBeNull] private CardOnField _selectedCardOnField;
 
     private void Awake() {
+        if (player == null) {
+            Debug.LogError("Player not set!");
+        }
+
         _camera = GetComponent<Camera>();
-        _player = GetComponent<Player>();
         var input = GetComponent<PlayerInput>();
         input.OnMouseDown += InputOnMouseDown;
         input.OnMouseUp += InputOnMouseUp;
         input.OnMouseMove += InputOnMouseMove;
     }
 
+    private void Start() {
+        TurnManager.Instance.OnTurnStart += HandleTurnStart;
+    }
+
+    private void HandleTurnStart(object sender, int e) {
+        gameObject.SetActive(player.IsTurn);
+    }
+
     private void InputOnMouseDown(object sender, Vector3 mousePosition) {
-        if (!_player.IsTurn) return;
+        if (!player.IsTurn) return;
 
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit, 1000)) {
             var card = hit.collider.GetComponent<CardOnField>();
-            if (card != null && card.PlayerIndex == _player.PlayerIndex) {
+            if (card != null && card.PlayerIndex == player.PlayerIndex) {
                 _selectedCardOnField = card; // todo: highlight selected card
                 Debug.Log("Selected card " + card.name);
             }
@@ -33,10 +45,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void InputOnMouseUp(object sender, Vector3 mousePosition) {
+        if (_selectedCardOnField == null) return;
+
         var ray = _camera.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out var hit)) {
-            if (_selectedCardOnField == null) return;
-
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("CardOnField")) {
                 var targetCard = hit.collider.GetComponent<CardOnField>();
                 if (targetCard == null) {
@@ -46,12 +58,10 @@ public class PlayerController : MonoBehaviour {
 
                 if (targetCard.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
 
-                _player.Attack(_selectedCardOnField, targetCard);
+                player.Attack(_selectedCardOnField, targetCard);
                 Debug.Log("Attacked card " + targetCard.name);
-                return;
             }
-
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerCharacter")) {
+            else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerCharacter")) {
                 var playerCharacter = hit.collider.GetComponent<PlayerCharacter>();
                 if (playerCharacter == null) {
                     Debug.LogError("No playerCharacter component on object! id: " + hit.collider.name);
@@ -60,9 +70,8 @@ public class PlayerController : MonoBehaviour {
 
                 if (playerCharacter.PlayerIndex == _selectedCardOnField.PlayerIndex) return;
 
-                _player.Attack(_selectedCardOnField, playerCharacter);
+                player.Attack(_selectedCardOnField, playerCharacter);
                 Debug.Log("Attacked player character " + playerCharacter.name);
-                return;
             }
         }
 
@@ -74,7 +83,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            _player.PlayCard(_player.DrawCard());
+            player.PlayCard(player.DrawCard());
         }
     }
 }
